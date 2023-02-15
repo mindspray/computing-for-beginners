@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --windows-light-grey: rgb(200, 200, 200);
+  --windows-dark-grey: rgb(137, 136, 145);
+  --windows-blue: rgb(0 10 168);
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: default;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.desktop {
+  flex: 1 0 auto;  
+  background-color: #00807F;
+}
+.taskbar {
+  padding: 3px;
+  display: flex;
+  flex: 1 0 auto;
+  align-self: flex-end;
+  background-color: var(--windows-light-grey);
+  width: 100%;
+  height: 40px;
+  max-height: 40px;
+}
+.start {
+  width: 90px;
+  position: relative;
+}
+.startBtn {
+  background-color: inherit;
+  padding: 3px;
+  padding-top: 5px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid;
+  border-style: outset;
+  display:inline-block;
+  font-size: 20px;
+  font-weight: 700;
+}
+.startBtnInner {
+  display: flex;
+  height: 100%;
+}
+.startBtnInner p:last-of-type {
+  width: 100%;
+  text-align: right;
+}
+.startBtn:active .startBtnInner, .startBtn:focus .startBtnInner {
+  border: 1px dotted black;
+
+}
+.startMenu {
+  pointer-events: auto;
+  width: 300px;
+  height: auto;
+  display: none;
+  background-color: var(--windows-light-grey);
+  border-style: outset;
+  position: absolute;
+  bottom: 36px;
+}
+.startMenu .banner {
+  width: 50px;
+  background-color: var(--windows-dark-grey);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.startMenu .banner p {
+  font-size: 36px;
+  transform: rotate(-90deg);
+  transform-origin: 0 50%;
+  width: 0;
+  color: var(--windows-light-grey);
+  font-family: 'Arial Black', Helvetica, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.1rem;
+  margin-bottom: -10px;
+}
+.startMenu .banner p span {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  color: white;
+}
+
+.startBtn:focus + .startMenu {
+  display: flex;
+}
+
+.itemList{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.itemList .item {
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+  height: 70px;
+  align-items: center;
+  position: relative;
+}
+.itemList .item:hover {
+  color: white;
+  background-color: var(--windows-blue);
+}
+.itemList .break {
+  height:auto;
+}
+hr{
+  width: 100%;
+}
+.itemList .icon {
+  text-align: center;
+  font-size: 36px;
+  width: 70px;
+}
+
+.subMenu {
+  color: black;
+  pointer-events: auto;
+  width: 300px;
+  height: auto;
+  display: none;
+  background-color: var(--windows-light-grey);
+  border-style: outset;
+  position: absolute;
+  left: 100%;
+  top: -1px;
+}
+
+.startMenu .item:hover > .subMenu {
+  display: flex;
+}
+
+.subItemList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.subItemList .subItem {
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  position: relative;
+}
+.subItemList .subItem:hover {
+  color: white;
+  background-color: var(--windows-blue);
+}
+
+.subMenu .subItem:hover > .subMenu {
+  display: flex;
+}
+
+.appTray {
+  padding: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: rgb(227, 155, 53);
+  flex: 1;
+}
+.systemTray {
+  width: 200px;
+  border: 2px solid;
+  border-style: inset;
+}
