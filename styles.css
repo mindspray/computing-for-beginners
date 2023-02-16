@@ -24,6 +24,8 @@
   background-color: #00807F;
 }
 .taskbar {
+  position:fixed;
+  bottom: 0;
   padding: 3px;
   display: flex;
   flex: 1 0 auto;
@@ -33,21 +35,25 @@
   height: 40px;
   max-height: 40px;
 }
-.start {
+/* .start {
   width: 90px;
   position: relative;
-}
+} */
 .startBtn {
   background-color: inherit;
   padding: 3px;
   padding-top: 5px;
-  width: 100%;
+  position: relative;
+  width: 90px;
   height: 100%;
   border: 2px solid;
   border-style: outset;
-  display:inline-block;
+  display: inline-block;
   font-size: 20px;
   font-weight: 700;
+}
+.startBtn:focus {
+  border: inset;
 }
 .startBtnInner {
   display: flex;
@@ -65,20 +71,25 @@
   pointer-events: auto;
   width: 300px;
   height: auto;
-  display: none;
   background-color: var(--windows-light-grey);
   border-style: outset;
   position: absolute;
   bottom: 36px;
 }
-.startMenu .banner {
+[class="startMenu"] {
+  display: none;
+}
+.displayFlex {
+  display: flex;
+}
+.banner {
   width: 50px;
   background-color: var(--windows-dark-grey);
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
-.startMenu .banner p {
+.banner p {
   font-size: 36px;
   transform: rotate(-90deg);
   transform-origin: 0 50%;
@@ -89,15 +100,18 @@
   letter-spacing: -0.1rem;
   margin-bottom: -10px;
 }
-.startMenu .banner p span {
+.banner p span {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 100;
   color: white;
 }
 
-.startBtn:focus + .startMenu {
+/* .startBtn:focus + .startMenu {
   display: flex;
-}
+} */
+/* .startMenu:focus-within {
+  display: flex;
+} */
 
 .itemList{
   display: flex;
@@ -116,6 +130,9 @@
   color: white;
   background-color: var(--windows-blue);
 }
+.itemList .item .name {
+  width: 100%;
+}
 .itemList .break {
   height:auto;
 }
@@ -133,15 +150,21 @@ hr{
   pointer-events: auto;
   width: 300px;
   height: auto;
-  display: none;
   background-color: var(--windows-light-grey);
   border-style: outset;
   position: absolute;
   left: 100%;
   top: -1px;
 }
+[class="subMenu"] {
+  display: none;
+}
 
-.startMenu .item:hover > .subMenu {
+/* .startMenu:hover, .startMenu:active, .startMenu:focus, .startMenu:focus-within {
+  display: flex;
+} */
+
+.startMenu .item:hover > .subMenu.delayed {
   display: flex;
 }
 
@@ -158,13 +181,21 @@ hr{
   align-items: center;
   position: relative;
 }
+.subItem p:first-of-type{
+  width: 100%;
+}
 .subItemList .subItem:hover {
   color: white;
   background-color: var(--windows-blue);
 }
 
-.subMenu .subItem:hover > .subMenu {
+.subMenu .subItem:hover > .subMenu.delayed {
   display: flex;
+}
+
+.title-bar {
+  color: #fff;
+  background-color: #0000ff;
 }
 
 .appTray {
