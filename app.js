@@ -19,7 +19,7 @@ document.addEventListener('click', (e)=> {
       startMenu.classList.add("displayFlex");
     }
   } else if ((!e.target.closest(".startMenu"))) {
-    // If didn't click on start menu
+    // If didn't click on start menu or subtrees
     startMenu.classList.remove("displayFlex");
     subMenus.forEach((subMenu)=> {
       if (subMenu.classList.contains("delayed")) {
@@ -31,79 +31,52 @@ document.addEventListener('click', (e)=> {
   }
 })
 
-items.forEach((item)=>{
-  let timeoutIdAdd;
-  let timeoutIdRemove;
-  let subMenu = item.querySelector(":scope > .subMenu");
-  if (!subMenu) return;
-  if (subMenu) {
-    let arrow = document.createElement("p");
-    arrow.textContent = "⏵";
-    arrow.style.paddingRight = "10px"
-    item.appendChild(arrow);
-  }
-  item.addEventListener('mouseenter', ()=> {
-    timeoutIdAdd = setTimeout(() => {
-      subMenu.classList.add("delayed");
-    }, 700);
+let totalItems = [items, subItems];
+
+totalItems.forEach((itemSet)=> {
+  itemSet.forEach((item)=>{
+    let timeoutIdAdd;
+    let timeoutIdRemove;
+    let subMenu = item.querySelector(":scope > .subMenu");
+    if (!subMenu) return;
+    if (subMenu) {
+      let arrow = document.createElement("p");
+      arrow.textContent = "⏵";
+      arrow.style.paddingRight = "10px"
+      item.appendChild(arrow);
+    }
+
+    item.addEventListener('mouseenter', ()=> {
+      timeoutIdAdd = setTimeout(() => {
+        subMenu.classList.add("delayed");
+      }, 700);
+      console.log(item.classList.toString());
+    })
+
+    item.addEventListener('mouseleave', ()=> {
+      clearTimeout(timeoutIdAdd);
+      timeoutIdRemove = setTimeout(() => {
+        subMenu.classList.remove("delayed");
+      }, 700);
+    })
+    
+    // subMenu.addEventListener('mouseenter', ()=> {
+    //   clearTimeout(timeoutIdRemove);
+    // })
+    // subMenu.addEventListener('mouseleave', ()=> {
+    //   setTimeout(() => {
+    //     subMenu.classList.remove("delayed");
+    //   }, 700);
+    // })
+
+    startMenu.addEventListener("mouseleave", () => {
+      clearTimeout(timeoutIdRemove);
+    })
   })
 
-  item.addEventListener('mouseleave', ()=> {
-    clearTimeout(timeoutIdAdd);
-    timeoutIdRemove = setTimeout(() => {
-      subMenu.classList.remove("delayed");
-    }, 700);
-  })
-  
-  subMenu.addEventListener('mouseenter', ()=> {
-    clearTimeout(timeoutIdRemove);
-  })
-
-  startMenu.addEventListener("mouseleave", () => {
-    clearTimeout(timeoutIdRemove);
-  })
-})
-
-subItems.forEach((subItem)=>{
-  let timeoutIdAdd;
-  let timeoutIdRemove;
-  let subMenu = subItem.querySelector(":scope > .subMenu");
-  if (!subMenu) return;
-  if (subMenu) {
-    let arrow = document.createElement("p");
-    arrow.textContent = "⏵";
-    arrow.style.paddingRight = "10px"
-    subItem.appendChild(arrow);
-  }
-  subItem.addEventListener('mouseenter', ()=> {
-    // subMenu.classList.remove("delayed");
-    timeoutIdAdd = setTimeout(() => {
-      subMenu.classList.add("delayed");
-    }, 700);
-  })
-
-  subItem.addEventListener('mouseleave', ()=> {
-    clearTimeout(timeoutIdAdd);
-    timeoutIdRemove = setTimeout(() => {
-      subMenu.classList.remove("delayed");
-    }, 700);
-  })
-
-  subMenu.addEventListener('mouseenter', ()=> {
-    clearTimeout(timeoutIdRemove);
-  })
-
-  startMenu.addEventListener("mouseleave", () => {
-    clearTimeout(timeoutIdRemove);
-  })
 })
 
 notepadLink = document.querySelector(".notepad");
 notepadLink.addEventListener("click", ()=> {
-  let notepad = new Window("notepad", 100, 100, 640, 480);
-  console.log(notepad);
-  notepad.element.style.position = "fixed";
-  notepad.element.style.backgroundColor = `rgb(255 255 255)`;
-  notepad.element.style.resize = "both";
-  notepad.element.style.overflow = "auto";
+  openNotepad();
 })
